@@ -1,8 +1,6 @@
-// src/components/Navbar.tsx
 import { useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import "./styles.scss";
-import Login from "../Login";
 
 function Navbar() {
   const [token, setToken] = useState<string | null>(null);
