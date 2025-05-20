@@ -161,5 +161,6 @@ dist
 
 
 # start of gitignore
+node_modules
+dist
 .env
-dist/
