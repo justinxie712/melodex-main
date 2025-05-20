@@ -1,0 +1,97 @@
+/* App.scss */
+
+.app-container {
+  width: 87.5%;
+  margin-left: auto;
+  margin-right: auto;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #181818; /* Slightly lighter dark background */
+  color: #e0e0e0;
+  font-family: inherit;
+}
+
+main {
+  flex-grow: 1;
+  padding: 2rem 0;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+
+  h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #1db954;
+  }
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 2rem;
+
+  a {
+    color: #e0e0e0;
+    font-weight: 600;
+    text-decoration: none;
+    padding-bottom: 0.25rem;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.2s ease-in-out;
+
+    &:hover,
+    &:focus {
+      border-color: #1db954;
+      outline: none;
+    }
+
+    &.active {
+      border-color: #1db954;
+    }
+  }
+}
+
+main {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 60vh;
+}
+
+.navbar-links {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+
+  a {
+    /* existing styles */
+  }
+
+  .navbar-username {
+    color: #e0e0e0;
+    font-weight: 600;
+    user-select: none;
+  }
+
+  .logout-button {
+    background-color: transparent;
+    border: 1.5px solid #1db954;
+    color: #1db954;
+    padding: 0.3rem 0.8rem;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+
+    &:hover,
+    &:focus {
+      background-color: #1db954;
+      color: #121212;
+      outline: none;
+    }
+  }
+}
