@@ -1,0 +1,177 @@
+.track-detail {
+  background-color: #121212;
+  border-radius: 8px;
+  padding: 24px;
+  color: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  width: 150%;
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+
+  &__header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+  }
+
+  &__image-container {
+    flex-shrink: 0;
+    margin-right: 24px;
+  }
+
+  &__album-image {
+    width: 160px;
+    height: 160px;
+    border-radius: 4px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  }
+
+  &__info {
+    flex-grow: 1;
+    min-width: 200px;
+  }
+
+  &__title {
+    font-size: 28px;
+    font-weight: 700;
+    margin: 0 0 8px 0;
+  }
+
+  &__artist {
+    font-size: 18px;
+    color: #b3b3b3;
+    margin: 0;
+  }
+
+  &__popularity-chart {
+    position: relative;
+    width: 160px;
+    height: 160px;
+    margin-left: 24px;
+    flex-shrink: 0;
+  }
+
+  &__key-chart {
+    position: relative;
+    width: 160px;
+    height: 160px;
+    margin-left: 24px;
+    flex-shrink: 0;
+  }
+
+  &__features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 24px;
+    margin-top: 24px;
+  }
+
+  &__feature-item {
+    background-color: #181818;
+    border-radius: 8px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+    }
+  }
+
+  &__chart-container {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    margin: 0 auto;
+  }
+
+  &__feature-label {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    width: 100%;
+  }
+
+  &__feature-value {
+    display: block;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+
+  &__feature-text {
+    display: block;
+    font-size: 12px;
+    color: #b3b3b3;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+}
+
+@media (max-width: 768px) {
+  .track-detail {
+    padding: 16px;
+    width: 100%;
+    left: 0;
+    transform: none;
+
+    &__header {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    &__image-container {
+      margin-right: 0;
+      margin-bottom: 16px;
+    }
+
+    &__popularity-chart, &__key-chart {
+      width: 140px;
+      height: 140px;
+      margin: 16px auto 0;
+    }
+
+    &__key-chart {
+      margin-top: 24px;
+    }
+
+    &__features-grid {
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 16px;
+    }
+
+    &__chart-container {
+      width: 100px;
+      height: 100px;
+    }
+
+    &__feature-value {
+      font-size: 18px;
+    }
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .track-detail {
+    &__header {
+      flex-wrap: wrap;
+    }
+    
+    &__info {
+      margin-bottom: 20px;
+    }
+    
+    &__popularity-chart, &__key-chart {
+      margin-top: 10px;
+    }
+  }
+}

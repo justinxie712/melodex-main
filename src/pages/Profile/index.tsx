@@ -1,20 +1,21 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { debounce } from "lodash";
+import SearchBar from "../../components/SearchBar";
+import TrackDetail from "../../components/TrackDetail";
 import "./styles.scss";
-
-interface Track {
-  id: string;
-  name: string;
-  artists: { name: string }[];
-  album: { images: { url: string }[] };
-}
+import type { AudioFeatures, Track } from "../../types";
+import { getAudioFeatures } from "../../services/audioFeaturesService";
+import { refreshToken } from "../../utils/helpers";
 
 const Profile: React.FC = () => {
   const [query, setQuery] = useState("");
   const [showResults, setShowResults] = useState(false);
   const [results, setResults] = useState<Track[]>([]);
+  const [selectedTrack, setSelectedTrack] = useState<Track | null>(null);
+  const [audioFeatures, setAudioFeatures] = useState<AudioFeatures | null>(
+    null
+  );
   const [error, setError] = useState<string | null>(null);
-
   const token = localStorage.getItem("spotify_token");
 
   const searchTracks = async (searchQuery: string) => {
@@ -33,11 +34,16 @@ const Profile: React.FC = () => {
       );
 
       if (!res.ok) {
+        if (res.status === 401) {
+          await refreshToken();
+          return;
+        }
         throw new Error("Failed to fetch. Token may have expired.");
       }
 
       const data = await res.json();
-      setResults(data.tracks?.items || []);
+      const trackResults: Track[] = data.tracks?.items || [];
+      setResults(trackResults);
       setShowResults(true);
       setError(null);
     } catch (err) {
@@ -47,11 +53,23 @@ const Profile: React.FC = () => {
     }
   };
 
+  const fetchAudioFeatures = async (trackId: string) => {
+    if (!trackId) return;
+    try {
+      const features = await getAudioFeatures(trackId);
+      setAudioFeatures(features);
+      setError(null);
+    } catch (err) {
+      setAudioFeatures(null);
+      setError(`Error: ${(err as Error).message}`);
+    }
+  };
+
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const debouncedSearch = useCallback(
     debounce((searchQuery: string) => {
       searchTracks(searchQuery);
-    }, 500),
+    }, 300),
     [token]
   );
 
@@ -63,50 +81,48 @@ const Profile: React.FC = () => {
       setResults([]);
       setShowResults(false);
     }
-  }, [query, debouncedSearch, results]);
 
-  const handleButtonClick = () => {
-    searchTracks(query);
+    return () => {
+      debouncedSearch.cancel();
+    };
+  }, [query, debouncedSearch]);
+
+  useEffect(() => {
+    if (selectedTrack) {
+      fetchAudioFeatures(selectedTrack.id);
+    } else {
+      setAudioFeatures(null);
+    }
+  }, [selectedTrack]);
+
+  const handleQueryChange = (newQuery: string) => {
+    setQuery(newQuery);
+  };
+
+  const handleClear = () => {
+    setSelectedTrack(null);
+  };
+
+  const handleResultsChange = (result: Track & { popularity: number }) => {
+    setSelectedTrack(result);
   };
 
   return (
     <div className="profile__container">
-      <div className="profile__search-container">
-        <input
-          type="text"
-          placeholder="Search for a song..."
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          className="profile__search-input"
-        />
-        <button onClick={handleButtonClick} className="profile__search-button">
-          Search
-        </button>
-      </div>
-      {error && <p className="profile__error">{error}</p>}
-      <div className="profile__results-wrapper">
-        {showResults && results.length > 0 && (
-          <ul className="profile__results-list">
-            {results.map((track) => (
-              <li key={track.id} className="profile__track-item">
-                <img
-                  src={track.album.images[0]?.url}
-                  alt={track.name}
-                  className="profile__track-image"
-                />
-                <div>
-                  <p className="profile__track-name">{track.name}</p>
-                  <p className="profile__track-artists">
-                    {track.artists.map((a) => a.name).join(", ")}
-                  </p>
-                </div>
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>
+      <SearchBar
+        query={query}
+        results={results}
+        showResults={showResults}
+        closeResults={() => setShowResults(false)}
+        error={error}
+        onQueryChange={handleQueryChange}
+        onClear={handleClear}
+        onResultsChange={handleResultsChange}
+      />
+      {selectedTrack && (
+        <TrackDetail track={selectedTrack} audioFeatures={audioFeatures} />
+      )}
     </div>
   );
 };
-
 export default Profile;
