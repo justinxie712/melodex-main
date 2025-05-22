@@ -60,12 +60,12 @@ function Navbar() {
           >
             Profile
           </NavLink>
-          <NavLink
+          {/* <NavLink
             to="/compare"
             className={({ isActive }) => (isActive ? "active" : "")}
           >
             Compare
-          </NavLink>
+          </NavLink> */}
           <span className="navbar-username">
             {profile ? `Hello, ${profile.display_name}` : "Loading..."}
           </span>
