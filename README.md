@@ -1,54 +1,104 @@
-# React + TypeScript + Vite
+# Melodex
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Melodex is a modern web application built with React, TypeScript, and Vite that interacts with Spotify's API to analyze and display music data. The application provides an intuitive interface for exploring audio features of your favorite tracks.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Integration with Spotify's API
+- Audio feature analysis and visualization
+- Responsive design for desktop and mobile
+- Mock data implementation with singleton cache for development
 
-## Expanding the ESLint configuration
+## Tech Stack
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- React 18
+- TypeScript
+- Vite
+- Spotify Web API
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## Getting Started
+
+### Prerequisites
+
+- Node.js (v16 or higher)
+- npm or yarn
+- A Spotify Developer account (for API access)
+
+### Installation
+
+1. Clone the repository:
+
+```bash
+git clone https://github.com/justinxie712/melodex-main.git
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+2. Navigate to the project directory:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+```bash
+cd melodex-main
 ```
+
+3. Install dependencies:
+
+```bash
+npm install
+```
+
+or if you use yarn:
+
+```bash
+yarn
+```
+
+4. Create a `.env` file in the root directory with your Spotify API credentials:
+
+```
+VITE_SPOTIFY_CLIENT_ID=your_client_id
+VITE_SPOTIFY_CLIENT_SECRET=your_client_secret
+VITE_REDIRECT_URI=http://127.0.0.1:5173/callback
+```
+
+### Running the Application
+
+Start the development server:
+
+```bash
+npm run dev
+```
+
+or with yarn:
+
+```bash
+yarn dev
+```
+
+The application will be available at `http://127.0.0.1:5173`.
+
+## API Implementation
+
+Melodex uses Spotify's Web API to fetch music data. For development purposes, the application implements a mock version of the audio-features endpoint using a singleton cache pattern. This allows for development without constantly hitting the Spotify API rate limits.
+
+The mock implementation provides realistic data responses while developing and testing the application.
+
+## Building for Production
+
+To create a production build:
+
+```bash
+npm run build
+```
+
+or with yarn:
+
+```bash
+yarn build
+```
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Acknowledgments
+
+- Spotify for providing their Web API
+- The React and Vite communities for their excellent tools and documentation
