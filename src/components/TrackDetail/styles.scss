@@ -31,8 +31,12 @@
   }
 
   &__info {
-    flex-grow: 1;
-    min-width: 200px;
+    max-width: 400px;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow-x: hidden;
   }
 
   &__title {
@@ -134,7 +138,8 @@
       margin-bottom: 16px;
     }
 
-    &__popularity-chart, &__key-chart {
+    &__popularity-chart,
+    &__key-chart {
       width: 140px;
       height: 140px;
       margin: 16px auto 0;
@@ -165,12 +170,13 @@
     &__header {
       flex-wrap: wrap;
     }
-    
+
     &__info {
       margin-bottom: 20px;
     }
-    
-    &__popularity-chart, &__key-chart {
+
+    &__popularity-chart,
+    &__key-chart {
       margin-top: 10px;
     }
   }

@@ -1,5 +1,6 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { debounce } from "lodash";
+import { motion, AnimatePresence } from "framer-motion";
 import SearchBar from "../../components/SearchBar";
 import TrackDetail from "../../components/TrackDetail";
 import "./styles.scss";
@@ -16,12 +17,14 @@ const Profile: React.FC = () => {
     null
   );
   const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
   const token = localStorage.getItem("spotify_token");
 
   const searchTracks = async (searchQuery: string) => {
     if (!searchQuery || !token) return;
 
     try {
+      setIsLoading(true);
       const res = await fetch(
         `https://api.spotify.com/v1/search?q=${encodeURIComponent(
           searchQuery
@@ -50,18 +53,23 @@ const Profile: React.FC = () => {
       setError((err as Error).message);
       setResults([]);
       setShowResults(false);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const fetchAudioFeatures = async (trackId: string) => {
     if (!trackId) return;
     try {
+      setIsLoading(true);
       const features = await getAudioFeatures(trackId);
       setAudioFeatures(features);
       setError(null);
     } catch (err) {
       setAudioFeatures(null);
       setError(`Error: ${(err as Error).message}`);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -109,20 +117,79 @@ const Profile: React.FC = () => {
 
   return (
     <div className="profile__container">
-      <SearchBar
-        query={query}
-        results={results}
-        showResults={showResults}
-        closeResults={() => setShowResults(false)}
-        error={error}
-        onQueryChange={handleQueryChange}
-        onClear={handleClear}
-        onResultsChange={handleResultsChange}
-      />
-      {selectedTrack && (
-        <TrackDetail track={selectedTrack} audioFeatures={audioFeatures} />
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        className="profile__header"
+      >
+        <h1>Track Analysis</h1>
+        <p>Search for a track to explore its audio features</p>
+      </motion.div>
+
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.2 }}
+        className="profile__search"
+      >
+        <SearchBar
+          query={query}
+          results={results}
+          showResults={showResults}
+          closeResults={() => setShowResults(false)}
+          error={error}
+          onQueryChange={handleQueryChange}
+          onClear={handleClear}
+          onResultsChange={handleResultsChange}
+        />
+      </motion.div>
+
+      {isLoading && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="profile__loading"
+        >
+          <div className="loading-spinner" />
+          <span>Loading...</span>
+        </motion.div>
       )}
+
+      <AnimatePresence mode="wait">
+        {selectedTrack ? (
+          <motion.div
+            key="track-detail"
+            initial={{ opacity: 0, scale: 0.9, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.9, y: -20 }}
+            transition={{ duration: 0.5 }}
+            className="profile__track-detail"
+          >
+            <TrackDetail track={selectedTrack} audioFeatures={audioFeatures} />
+          </motion.div>
+        ) : (
+          <motion.div
+            key="empty-state"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+            className="profile__empty"
+          >
+            <div className="empty__content">
+              <div className="empty__icon">🎵</div>
+              <h3>No track selected</h3>
+              <p>
+                Search for a track above to view its detailed audio analysis
+              </p>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
+
 export default Profile;
