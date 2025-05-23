@@ -52,7 +52,7 @@ function Navbar() {
   return (
     <nav className="navbar">
       <div className="navbar-title">Melodex</div>
-      {token && profile && (
+      {token && profile?.display_name && (
         <div className="navbar-links">
           <NavLink
             to="/profile"
