@@ -6,8 +6,10 @@ Melodex is a modern web application built with React, TypeScript, and Vite that 
 
 - Integration with Spotify's API
 - Audio feature analysis and visualization
+- Interactive search functionality with real-time results
 - Responsive design for desktop and mobile
 - Mock data implementation with singleton cache for development
+- Smooth animations and transitions
 
 ## Tech Stack
 
@@ -15,6 +17,41 @@ Melodex is a modern web application built with React, TypeScript, and Vite that 
 - TypeScript
 - Vite
 - Spotify Web API
+- Framer Motion (for animations)
+- SCSS (for styling)
+
+## Components
+
+### SearchBar Component
+
+The SearchBar component (`src/components/SearchBar/index.tsx`) provides a comprehensive search interface for discovering tracks:
+
+**Key Features:**
+
+- Real-time search with dynamic results display
+- Click-outside functionality to close results
+- Interactive track selection with album artwork
+- Error handling and loading states
+- Responsive design with SCSS styling
+
+**Functionality:**
+
+- Accepts search queries and displays matching tracks
+- Shows track information including name, artists, and album artwork
+- Handles user interactions (focus, click, selection)
+- Manages results visibility state
+- Provides clear functionality to reset search
+
+**Props Interface:**
+
+- `query`: Current search query string
+- `results`: Array of track results from Spotify API
+- `showResults`: Boolean to control results visibility
+- `closeResults`: Callback to close results dropdown
+- `error`: Error message display
+- `onQueryChange`: Handler for search input changes
+- `onClear`: Handler for clearing search
+- `onResultsChange`: Handler for track selection
 
 ## Getting Started
 
@@ -80,6 +117,21 @@ Melodex uses Spotify's Web API to fetch music data. For development purposes, th
 
 The mock implementation provides realistic data responses while developing and testing the application.
 
+## Styling and Animations
+
+The application uses SCSS for component styling, providing:
+
+- Modular component-specific stylesheets
+- Responsive design patterns
+- Clean and modern UI components
+
+Framer Motion is integrated for smooth animations and transitions throughout the application, enhancing the user experience with:
+
+- Page transitions
+- Component animations
+- Interactive feedback
+- Loading states
+
 ## Building for Production
 
 To create a production build:
@@ -102,3 +154,4 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 - Spotify for providing their Web API
 - The React and Vite communities for their excellent tools and documentation
+- Framer Motion for providing smooth animation capabilities
