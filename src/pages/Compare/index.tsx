@@ -42,7 +42,7 @@ const AUDIO_FEATURE_CATEGORIES = [
   { key: "valence", label: "Valence", color: "#1F8B4C" },
 ] as const;
 
-const TRACK_COLORS = ["#1DB954", "#1ED760", "#1AA34A", "#168B3A"];
+const TRACK_COLORS = ["#1DB954", "#E22134", "#FF6B35", "#9B59B6"];
 
 const Compare: React.FC = () => {
   const [query, setQuery] = useState("");
@@ -53,6 +53,20 @@ const Compare: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const token = localStorage.getItem("spotify_token");
+
+  // Function to get the next available color
+  const getNextAvailableColor = (): string => {
+    const usedColors = compareTracks.map(track => track.color);
+    return TRACK_COLORS.find(color => !usedColors.includes(color)) || TRACK_COLORS[0];
+  };
+
+  // Function to reassign colors to ensure all tracks have different colors
+  const reassignColors = (tracks: CompareTrack[]): CompareTrack[] => {
+    return tracks.map((track, index) => ({
+      ...track,
+      color: TRACK_COLORS[index] || TRACK_COLORS[index % TRACK_COLORS.length]
+    }));
+  };
 
   const searchTracks = async (searchQuery: string) => {
     if (!searchQuery || !token) return;
@@ -172,10 +186,13 @@ const Compare: React.FC = () => {
     const newTrack: CompareTrack = {
       ...result,
       audioFeatures,
-      color: TRACK_COLORS[compareTracks.length],
+      color: getNextAvailableColor(),
     };
 
-    setCompareTracks((prev) => [...prev, newTrack]);
+    setCompareTracks((prev) => {
+      const updatedTracks = [...prev, newTrack];
+      return reassignColors(updatedTracks);
+    });
     setQuery("");
     setShowResults(false);
     setError(null);
@@ -183,7 +200,10 @@ const Compare: React.FC = () => {
   };
 
   const removeTrack = (trackId: string) => {
-    setCompareTracks((prev) => prev.filter((track) => track.id !== trackId));
+    setCompareTracks((prev) => {
+      const filteredTracks = prev.filter((track) => track.id !== trackId);
+      return reassignColors(filteredTracks);
+    });
   };
 
   const getChartData = () => {
