@@ -5,6 +5,10 @@ const redirectUri = import.meta.env.VITE_SPOTIFY_REDIRECT_URI;
 const scopes = ["user-read-private", "user-read-email"];
 
 const Login = () => {
+  const token = localStorage.getItem("spotify_token");
+  if (token) {
+    window.location.href = "/profile";
+  }
   const handleLogin = async () => {
     const codeVerifier = generateCodeVerifier();
     const codeChallenge = await generateCodeChallenge(codeVerifier);
@@ -26,7 +30,11 @@ const Login = () => {
     window.location.href = authUrl;
   };
 
-  return <button onClick={handleLogin}>Login with Spotify</button>;
+  return !token ? (
+    <button onClick={handleLogin}>Login with Spotify</button>
+  ) : (
+    <></>
+  );
 };
 
 export default Login;
