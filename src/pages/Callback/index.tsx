@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 
-const clientId = import.meta.env.VITE_SPOTIFY_CLIENT_ID;
-const redirectUri = import.meta.env.VITE_SPOTIFY_REDIRECT_URI;
+const clientId = "22f447c6455049b29b33a741d879ab2e";
+const redirectUri = "http://127.0.0.1:5173/callback";
 
 const Callback = () => {
   const navigate = useNavigate();

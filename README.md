@@ -87,14 +87,6 @@ or if you use yarn:
 yarn
 ```
 
-4. Create a `.env` file in the root directory with your Spotify API credentials:
-
-```
-VITE_SPOTIFY_CLIENT_ID=your_client_id
-VITE_SPOTIFY_CLIENT_SECRET=your_client_secret
-VITE_REDIRECT_URI=http://127.0.0.1:5173/callback
-```
-
 ### Running the Application
 
 Start the development server:
@@ -113,9 +105,9 @@ The application will be available at `http://127.0.0.1:5173`.
 
 ## API Implementation
 
-Melodex uses Spotify's Web API to fetch music data. For development purposes, the application implements a mock version of the audio-features endpoint using a singleton cache pattern. This allows for development without constantly hitting the Spotify API rate limits.
+Melodex uses Spotify's Web API to fetch music data. For development purposes, the application implements a mock version of the /audio-features endpoint using a mock data generator function and a singleton cache pattern. This allows to simulate the API responses without having to make actual API call to the deprecated endpoint.
 
-The mock implementation provides realistic data responses while developing and testing the application.
+The mock implementation provides realistic data responses.
 
 ## Styling and Animations
 
