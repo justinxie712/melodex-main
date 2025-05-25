@@ -145,14 +145,14 @@ const Profile: React.FC = () => {
           onClear={handleClear}
           onResultsChange={handleResultsChange}
         />
-        {selectedTrack && (
-          <button
-            className="close-button"
-            onClick={() => setSelectedTrack(null)}
-          >
-            <X />
-          </button>
-        )}
+        <button
+          style={{ visibility: selectedTrack ? "visible" : "hidden" }}
+          className="profile__close-button"
+          onClick={() => setSelectedTrack(null)}
+          aria-label="Close track details"
+        >
+          <X size={20} />
+        </button>
       </motion.div>
       {isLoading && !selectedTrack ? (
         <motion.div

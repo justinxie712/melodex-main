@@ -1,7 +1,7 @@
 /* App.scss */
 
 .app-container {
-  width: 87.5%;
+  width: 100%;
   margin-left: auto;
   margin-right: auto;
   min-height: 100vh;
@@ -10,6 +10,10 @@
   background-color: #181818; /* Slightly lighter dark background */
   color: #e0e0e0;
   font-family: inherit;
+
+  @media (min-width: 1024px) {
+    width: 87.5%;
+  }
 }
 
 main {
@@ -66,10 +70,6 @@ main {
   display: flex;
   align-items: center;
   gap: 1.5rem;
-
-  a {
-    /* existing styles */
-  }
 
   .navbar-username {
     color: #e0e0e0;

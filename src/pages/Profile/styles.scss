@@ -28,15 +28,39 @@
   }
 
   &__search {
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
+    width: 100%;
     display: flex;
     align-items: flex-start;
-    gap: 8px;
-    height: 100%;
+    justify-content: center;
 
-    // TODO: fix color
-    .close-button {
-      background-color: gray;
+    @media (max-width: 768px) {
+      margin-bottom: 1rem;
+    }
+  }
+
+  &__close-button-container {
+    display: flex;
+    justify-content: center;
+    margin: 1rem 0;
+    padding: 0.2rem;
+    height: 100%;
+  }
+
+  &__close-button {
+    display: flex;
+    align-items: center;
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    color: white;
+    padding: 8px 12px;
+    font-weight: 600;
+
+    @media (max-width: 480px) {
+      padding: 6px 10px;
+    }
+
+    &:hover {
+      outline: 2px solid #fff;
     }
   }
 
@@ -119,7 +143,11 @@
   }
 
   &__track-detail {
-    margin-top: 2rem;
+    margin-top: 1rem;
+
+    @media (max-width: 768px) {
+      margin-top: 0.5rem;
+    }
   }
 
   &__empty {
@@ -128,6 +156,10 @@
     justify-content: center;
     padding: 4rem 2rem;
 
+    @media (max-width: 768px) {
+      padding: 3rem 1rem;
+    }
+
     .empty__content {
       text-align: center;
       max-width: 400px;
@@ -135,6 +167,10 @@
       .empty__icon {
         font-size: 4rem;
         margin-bottom: 1rem;
+
+        @media (max-width: 480px) {
+          font-size: 3rem;
+        }
       }
 
       h3 {
@@ -142,12 +178,20 @@
         font-weight: 600;
         color: #374151;
         margin: 0 0 0.5rem 0;
+
+        @media (max-width: 480px) {
+          font-size: 1.25rem;
+        }
       }
 
       p {
         color: #6b7280;
         margin: 0;
         line-height: 1.5;
+
+        @media (max-width: 480px) {
+          font-size: 0.875rem;
+        }
       }
     }
   }

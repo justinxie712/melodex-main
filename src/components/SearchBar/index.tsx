@@ -84,7 +84,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
                   alt={track.name}
                   className="search-bar__track-image"
                 />
-                <div>
+                <div className="search-bar__track-info">
                   <p className="search-bar__track-name">{track.name}</p>
                   <p className="search-bar__track-artists">
                     {track.artists.map((a) => a.name).join(", ")}

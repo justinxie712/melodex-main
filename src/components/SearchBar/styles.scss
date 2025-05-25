@@ -1,12 +1,28 @@
 .search-bar {
   width: 100%;
+  max-width: 600px;
+  min-width: 600px;
   position: relative;
-  margin-bottom: 2rem;
+  padding: 0 8px;
+
+  @media (max-width: 767px) {
+    max-width: 420px;
+    min-width: 420px;
+  }
+
+  @media (max-width: 480px) {
+    min-width: 300px;
+    max-width: 300px;
+  }
 
   &__container {
     display: flex;
     width: 100%;
     gap: 0.5rem;
+
+    @media (max-width: 480px) {
+      gap: 0.25rem;
+    }
   }
 
   &__input {
@@ -17,6 +33,12 @@
     background-color: #212121;
     color: #e0e0e0;
     font-size: 1rem;
+    min-width: 0;
+
+    @media (max-width: 480px) {
+      padding: 8px 12px;
+      font-size: 0.9rem;
+    }
 
     &:focus {
       outline: none;
@@ -25,7 +47,7 @@
   }
 
   &__button {
-    padding: 0.75rem 1.5rem;
+    padding: 8px 12px;
     background-color: #1db954; /* Spotify green */
     color: #121212;
     border: none;
@@ -33,6 +55,12 @@
     font-weight: 600;
     cursor: pointer;
     transition: background-color 0.2s ease;
+    white-space: nowrap;
+    flex-shrink: 0;
+
+    @media (max-width: 480px) {
+      font-size: 0.9rem;
+    }
 
     &:hover {
       outline: 2px solid #fff;
@@ -43,12 +71,19 @@
     color: #ff5252;
     margin-top: 0.5rem;
     font-size: 0.9rem;
+
+    @media (max-width: 480px) {
+      font-size: 0.8rem;
+    }
   }
 
   &__results-wrapper {
     position: absolute;
     width: 100%;
     z-index: 10;
+    left: 0;
+    top: 100%;
+    margin-top: 0.25rem;
   }
 
   &__results-list {
@@ -61,6 +96,14 @@
     max-height: 400px;
     overflow-y: auto;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+
+    @media (max-width: 768px) {
+      max-height: 300px;
+    }
+
+    @media (max-width: 480px) {
+      max-height: 250px;
+    }
   }
 
   &__track-item {
@@ -69,6 +112,10 @@
     padding: 0.75rem;
     border-bottom: 1px solid #333;
     cursor: pointer;
+
+    @media (max-width: 480px) {
+      padding: 0.5rem;
+    }
 
     &:last-child {
       border-bottom: none;
@@ -85,17 +132,43 @@
     object-fit: cover;
     margin-right: 1rem;
     border-radius: 4px;
+    flex-shrink: 0;
+
+    @media (max-width: 480px) {
+      width: 40px;
+      height: 40px;
+      margin-right: 0.75rem;
+    }
+  }
+
+  &__track-info {
+    flex: 1;
+    min-width: 0;
   }
 
   &__track-name {
     font-weight: 600;
     color: #e0e0e0;
     margin: 0 0 0.25rem 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    @media (max-width: 480px) {
+      font-size: 0.9rem;
+    }
   }
 
   &__track-artists {
     color: #b3b3b3;
     font-size: 0.9rem;
     margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    @media (max-width: 480px) {
+      font-size: 0.8rem;
+    }
   }
 }
