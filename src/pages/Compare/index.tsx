@@ -167,8 +167,6 @@ const Compare: React.FC = () => {
 
   const handleClear = () => {
     setQuery("");
-    setResults([]);
-    setShowResults(false);
   };
 
   const handleResultsChange = async (
@@ -339,8 +337,7 @@ const Compare: React.FC = () => {
             onResultsChange={handleResultsChange}
           />
         </motion.div>
-
-        {isLoading && (
+        {isLoading && compareTracks.length === 0 && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -349,7 +346,6 @@ const Compare: React.FC = () => {
             <SpinnerWidget />
           </motion.div>
         )}
-
         <div className="compare__content">
           {compareTracks.length > 0 ? (
             <motion.div

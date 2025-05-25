@@ -29,6 +29,15 @@
 
   &__search {
     margin-bottom: 2rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    height: 100%;
+
+    // TODO: fix color
+    .close-button {
+      background-color: gray;
+    }
   }
 
   &__search-container {

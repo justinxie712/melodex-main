@@ -8,6 +8,7 @@ import type { AudioFeatures, Track } from "../../types";
 import { getAudioFeatures } from "../../services/audioFeaturesService";
 import { refreshToken } from "../../utils/helpers";
 import SpinnerWidget from "../../components/Spinner";
+import { X } from "lucide-react";
 
 const Profile: React.FC = () => {
   const [query, setQuery] = useState("");
@@ -109,7 +110,7 @@ const Profile: React.FC = () => {
   };
 
   const handleClear = () => {
-    setSelectedTrack(null);
+    setQuery("");
   };
 
   const handleResultsChange = (result: Track & { popularity: number }) => {
@@ -144,9 +145,16 @@ const Profile: React.FC = () => {
           onClear={handleClear}
           onResultsChange={handleResultsChange}
         />
+        {selectedTrack && (
+          <button
+            className="close-button"
+            onClick={() => setSelectedTrack(null)}
+          >
+            <X />
+          </button>
+        )}
       </motion.div>
-
-      {isLoading && (
+      {isLoading && !selectedTrack ? (
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -155,39 +163,42 @@ const Profile: React.FC = () => {
         >
           <SpinnerWidget />
         </motion.div>
+      ) : (
+        <AnimatePresence mode="wait">
+          {selectedTrack ? (
+            <motion.div
+              key="track-detail"
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: -20 }}
+              transition={{ duration: 0.5 }}
+              className="profile__track-detail"
+            >
+              <TrackDetail
+                track={selectedTrack}
+                audioFeatures={audioFeatures}
+              />
+            </motion.div>
+          ) : (
+            <motion.div
+              key="empty-state"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+              className="profile__empty"
+            >
+              <div className="empty__content">
+                <div className="empty__icon">🎵</div>
+                <h3>No track selected</h3>
+                <p>
+                  Search for a track above to view its detailed audio analysis
+                </p>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       )}
-
-      <AnimatePresence mode="wait">
-        {selectedTrack ? (
-          <motion.div
-            key="track-detail"
-            initial={{ opacity: 0, scale: 0.9, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.9, y: -20 }}
-            transition={{ duration: 0.5 }}
-            className="profile__track-detail"
-          >
-            <TrackDetail track={selectedTrack} audioFeatures={audioFeatures} />
-          </motion.div>
-        ) : (
-          <motion.div
-            key="empty-state"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-            className="profile__empty"
-          >
-            <div className="empty__content">
-              <div className="empty__icon">🎵</div>
-              <h3>No track selected</h3>
-              <p>
-                Search for a track above to view its detailed audio analysis
-              </p>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </div>
   );
 };
