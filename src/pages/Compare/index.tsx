@@ -13,6 +13,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
+import type { ChartOptions } from "chart.js";
 import { Bar, Radar } from "react-chartjs-2";
 import SearchBar from "../../components/SearchBar";
 import { cacheService } from "../../services/cacheService";
@@ -280,6 +281,15 @@ const Compare: React.FC = () => {
         bodyColor: "#b3b3b3",
         borderColor: "#404040",
         borderWidth: 1,
+        callbacks: {
+          label: function (context: any) {
+            const label = context.dataset.label || "";
+            const value = context.raw;
+            const rounded =
+              typeof value === "number" ? value.toFixed(2) : value;
+            return `${label}: ${rounded}`;
+          },
+        },
       },
     },
     scales: {
@@ -312,12 +322,34 @@ const Compare: React.FC = () => {
     },
   };
 
-  const chartOptions = {
+  const chartOptions: ChartOptions<"radar"> = {
     responsive: true,
     maintainAspectRatio: false,
     plugins: {
       legend: {
-        display: !isMobile, // Hide the legend on mobile
+        display: true,
+        position: "top",
+        align: "center",
+        labels: {
+          boxWidth: 12,
+          padding: 16,
+        },
+      },
+      tooltip: {
+        backgroundColor: "#282828",
+        titleColor: "#ffffff",
+        bodyColor: "#b3b3b3",
+        borderColor: "#404040",
+        borderWidth: 1,
+        callbacks: {
+          label: function (context: any) {
+            const label = context.dataset.label || "";
+            const value = context.raw;
+            const rounded =
+              typeof value === "number" ? value.toFixed(2) : value;
+            return `${label}: ${rounded}`;
+          },
+        },
       },
     },
     scales: {
