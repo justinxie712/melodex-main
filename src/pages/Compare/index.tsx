@@ -21,6 +21,7 @@ import { refreshToken } from "../../utils/helpers";
 import type { AudioFeatures, Track } from "../../types";
 import "./styles.scss";
 import SpinnerWidget from "../../components/Spinner";
+import { useMediaQuery } from "react-responsive";
 
 ChartJS.register(
   RadialLinearScale,
@@ -60,6 +61,7 @@ const Compare: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const token = localStorage.getItem("spotify_token");
+  const isMobile = useMediaQuery({ maxWidth: 767 });
 
   // Function to get the next available color
   const getNextAvailableColor = (): string => {
@@ -315,21 +317,7 @@ const Compare: React.FC = () => {
     maintainAspectRatio: false,
     plugins: {
       legend: {
-        position: "top" as const,
-        labels: {
-          color: "#b3b3b3",
-          font: {
-            size: 12,
-            family: "'Circular', -apple-system, BlinkMacSystemFont, sans-serif",
-          },
-        },
-      },
-      tooltip: {
-        backgroundColor: "#282828",
-        titleColor: "#ffffff",
-        bodyColor: "#b3b3b3",
-        borderColor: "#404040",
-        borderWidth: 1,
+        display: !isMobile, // Hide the legend on mobile
       },
     },
     scales: {
