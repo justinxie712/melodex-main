@@ -7,6 +7,7 @@ import "./styles.scss";
 import type { AudioFeatures, Track } from "../../types";
 import { getAudioFeatures } from "../../services/audioFeaturesService";
 import { refreshToken } from "../../utils/helpers";
+import SpinnerWidget from "../../components/Spinner";
 
 const Profile: React.FC = () => {
   const [query, setQuery] = useState("");
@@ -152,8 +153,7 @@ const Profile: React.FC = () => {
           exit={{ opacity: 0 }}
           className="profile__loading"
         >
-          <div className="loading-spinner" />
-          <span>Loading...</span>
+          <SpinnerWidget />
         </motion.div>
       )}
 

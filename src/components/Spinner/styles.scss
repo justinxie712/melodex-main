@@ -1,0 +1,26 @@
+.spinner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+
+  &__icon {
+    width: 2.5rem;
+    height: 2.5rem;
+    color: #1db954; /* Spotify green */
+    animation: spinner-rotate 1s linear infinite;
+  }
+
+  &__label {
+    margin-top: 0.5rem;
+    font-size: 0.875rem;
+    color: inherit;
+  }
+}
+
+@keyframes spinner-rotate {
+  to {
+    transform: rotate(360deg);
+  }
+}

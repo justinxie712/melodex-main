@@ -17,6 +17,7 @@ import { getAudioFeatures } from "../../services/audioFeaturesService";
 import { refreshToken } from "../../utils/helpers";
 import type { AudioFeatures, Track } from "../../types";
 import "./styles.scss";
+import SpinnerWidget from "../../components/Spinner";
 
 ChartJS.register(
   RadialLinearScale,
@@ -56,15 +57,18 @@ const Compare: React.FC = () => {
 
   // Function to get the next available color
   const getNextAvailableColor = (): string => {
-    const usedColors = compareTracks.map(track => track.color);
-    return TRACK_COLORS.find(color => !usedColors.includes(color)) || TRACK_COLORS[0];
+    const usedColors = compareTracks.map((track) => track.color);
+    return (
+      TRACK_COLORS.find((color) => !usedColors.includes(color)) ||
+      TRACK_COLORS[0]
+    );
   };
 
   // Function to reassign colors to ensure all tracks have different colors
   const reassignColors = (tracks: CompareTrack[]): CompareTrack[] => {
     return tracks.map((track, index) => ({
       ...track,
-      color: TRACK_COLORS[index] || TRACK_COLORS[index % TRACK_COLORS.length]
+      color: TRACK_COLORS[index] || TRACK_COLORS[index % TRACK_COLORS.length],
     }));
   };
 
@@ -342,8 +346,7 @@ const Compare: React.FC = () => {
             animate={{ opacity: 1 }}
             className="compare__loading"
           >
-            <div className="loading-spinner" />
-            <span>Loading...</span>
+            <SpinnerWidget />
           </motion.div>
         )}
 
@@ -370,7 +373,7 @@ const Compare: React.FC = () => {
                           transition={{ duration: 0.3, delay: index * 0.1 }}
                           className="track__item"
                         >
-                          <div 
+                          <div
                             className="track__color-indicator"
                             style={{ backgroundColor: track.color }}
                           />
@@ -464,7 +467,9 @@ const Compare: React.FC = () => {
               <div className="empty__content">
                 <div className="empty__icon">🎵</div>
                 <h3>No tracks selected</h3>
-                <p>Search and add tracks to start comparing their audio features</p>
+                <p>
+                  Search and add tracks to start comparing their audio features
+                </p>
               </div>
             </motion.div>
           )}
