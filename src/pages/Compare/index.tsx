@@ -4,13 +4,16 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   Chart as ChartJS,
   RadialLinearScale,
+  CategoryScale,
+  LinearScale,
+  BarElement,
   PointElement,
   LineElement,
   Filler,
   Tooltip,
   Legend,
 } from "chart.js";
-import { Radar } from "react-chartjs-2";
+import { Bar, Radar } from "react-chartjs-2";
 import SearchBar from "../../components/SearchBar";
 import { cacheService } from "../../services/cacheService";
 import { getAudioFeatures } from "../../services/audioFeaturesService";
@@ -21,7 +24,10 @@ import SpinnerWidget from "../../components/Spinner";
 
 ChartJS.register(
   RadialLinearScale,
+  CategoryScale,
+  LinearScale,
   PointElement,
+  BarElement,
   LineElement,
   Filler,
   Tooltip,
@@ -248,16 +254,60 @@ const Compare: React.FC = () => {
           {
             label: selectedFeature.label,
             data,
-            backgroundColor: compareTracks.map((track) => `${track.color}60`),
+            backgroundColor: compareTracks.map((track) => `${track.color}80`),
             borderColor: compareTracks.map((track) => track.color),
             borderWidth: 2,
-            pointBackgroundColor: compareTracks.map((track) => track.color),
-            pointBorderColor: compareTracks.map((track) => track.color),
-            pointRadius: 6,
+            borderRadius: 10,
+            borderSkipped: false,
           },
         ],
       };
     }
+  };
+
+  const barChartOptions = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        display: false,
+      },
+      tooltip: {
+        backgroundColor: "#282828",
+        titleColor: "#ffffff",
+        bodyColor: "#b3b3b3",
+        borderColor: "#404040",
+        borderWidth: 1,
+      },
+    },
+    scales: {
+      x: {
+        grid: {
+          display: false,
+          drawBorder: false,
+        },
+        ticks: {
+          color: "#b3b3b3",
+          font: {
+            family: "'Circular', -apple-system, BlinkMacSystemFont, sans-serif",
+          },
+        },
+      },
+      y: {
+        beginAtZero: true,
+        max: 1,
+        grid: {
+          color: "#404040",
+          drawBorder: false,
+        },
+        ticks: {
+          color: "#b3b3b3",
+          font: {
+            family: "'Circular', -apple-system, BlinkMacSystemFont, sans-serif",
+          },
+        },
+      },
+    },
   };
 
   const chartOptions = {
@@ -449,7 +499,11 @@ const Compare: React.FC = () => {
                 className="compare__chart"
               >
                 <div className="chart__container">
-                  <Radar data={getChartData()} options={chartOptions} />
+                  {selectedCategory === "all" ? (
+                    <Radar data={getChartData()} options={chartOptions} />
+                  ) : (
+                    <Bar data={getChartData()} options={barChartOptions} />
+                  )}
                 </div>
               </motion.div>
             </motion.div>

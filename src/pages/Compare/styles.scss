@@ -279,6 +279,15 @@
     .chart__container {
       height: 450px;
       position: relative;
+      background-color: #1a1a1a;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease;
+
+      &:hover {
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+      }
 
       @media (max-width: 768px) {
         height: 350px;
