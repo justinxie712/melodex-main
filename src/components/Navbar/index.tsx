@@ -29,9 +29,11 @@ function Navbar({ token, title, profile, onLogout }: NavbarProps) {
             </NavLink>
           </div>
           <div className="navbar-user-section">
-            <span className="navbar-username">
-              {profile ? `Hello, ${profile.display_name}` : "Loading..."}
-            </span>
+            {profile.display_name && (
+              <span className="navbar-username">
+                {`Hello, ${profile.display_name}`}
+              </span>
+            )}
             <button onClick={onLogout} className="logout-button">
               Logout
             </button>
