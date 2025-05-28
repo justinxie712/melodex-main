@@ -2,21 +2,9 @@ import React from "react";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
 import "./styles.scss";
+import type { TrackDetailProps } from "../../types";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
-
-interface Track {
-  id: string;
-  name: string;
-  artists: { name: string }[];
-  album: { images: { url: string }[] };
-  popularity: number;
-}
-
-interface TrackDetailProps {
-  track: Track;
-  audioFeatures: any;
-}
 
 const TrackDetail: React.FC<TrackDetailProps> = ({ track, audioFeatures }) => {
   // Musical key mapping (0-11 to note names)
@@ -112,7 +100,7 @@ const TrackDetail: React.FC<TrackDetailProps> = ({ track, audioFeatures }) => {
   };
 
   const createKeyChartData = () => {
-    const keyColor = "#E91E63"; 
+    const keyColor = "#E91E63";
     const normalizedValue = (((audioFeatures?.key ?? 0) + 1) / 12) * 100;
 
     return {

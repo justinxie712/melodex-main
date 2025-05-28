@@ -5,7 +5,6 @@ const redirectUri = import.meta.env.VITE_SPOTIFY_REDIRECT_URI;
 const scopes = ["user-read-private", "user-read-email"];
 
 const Login = () => {
-  //TODO - add logic for valid token on refresh
   const handleLogin = async () => {
     const codeVerifier = generateCodeVerifier();
     const codeChallenge = await generateCodeChallenge(codeVerifier);

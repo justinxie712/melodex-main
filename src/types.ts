@@ -35,3 +35,35 @@ export interface SearchBarProps {
   closeResults: () => void;
   onResultsChange: (result: any) => void;
 }
+
+export interface NavbarProps {
+  isLoggedIn: boolean;
+  title: string;
+  profile: { display_name: string } | null;
+  onLogout: () => void;
+}
+
+export interface EmptyStateProps {
+  icon?: string;
+  title: string;
+  description: string;
+  className?: string;
+}
+
+export interface Track {
+  id: string;
+  name: string;
+  artists: { name: string }[];
+  album: { images: { url: string }[] };
+  popularity: number;
+}
+
+export interface TrackDetailProps {
+  track: Track;
+  audioFeatures: any;
+}
+
+export interface CompareTrack extends Track {
+  audioFeatures: AudioFeatures | null;
+  color: string;
+}

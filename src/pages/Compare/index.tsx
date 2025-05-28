@@ -19,7 +19,7 @@ import SearchBar from "../../components/SearchBar";
 import { cacheService } from "../../services/cacheService";
 import { getAudioFeatures } from "../../services/audioFeaturesService";
 import { refreshToken } from "../../utils/helpers";
-import type { AudioFeatures, Track } from "../../types";
+import type { AudioFeatures, CompareTrack, Track } from "../../types";
 import "./styles.scss";
 import SpinnerWidget from "../../components/Spinner";
 import EmptyState from "../../components/EmptyState";
@@ -35,11 +35,6 @@ ChartJS.register(
   Tooltip,
   Legend
 );
-
-interface CompareTrack extends Track {
-  audioFeatures: AudioFeatures | null;
-  color: string;
-}
 
 const AUDIO_FEATURE_CATEGORIES = [
   { key: "danceability", label: "Danceability", color: "#1DB954" },

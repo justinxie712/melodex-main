@@ -1,12 +1,6 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import "./styles.scss";
-
-interface NavbarProps {
-  isLoggedIn: boolean;
-  title: string;
-  profile: { display_name: string } | null;
-  onLogout: () => void;
-}
+import type { NavbarProps } from "../../types";
 
 function Navbar({ title, profile, onLogout, isLoggedIn }: NavbarProps) {
   const navigate = useNavigate();

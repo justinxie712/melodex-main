@@ -1,13 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import "./styles.scss";
-
-interface EmptyStateProps {
-  icon?: string;
-  title: string;
-  description: string;
-  className?: string;
-}
+import type { EmptyStateProps } from "../../types";
 
 const EmptyState: React.FC<EmptyStateProps> = ({
   icon = "🎵",
