@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import "./App.scss";
 
@@ -7,6 +7,7 @@ function App() {
   const [token, setToken] = useState<string | null>(null);
   const [profile, setProfile] = useState<{ display_name: string } | null>(null);
   const navigate = useNavigate();
+  const location = useLocation();
   const isLoggedIn = !!(token && profile?.display_name);
 
   // Fetch profile from Spotify API
@@ -52,7 +53,7 @@ function App() {
   };
 
   useEffect(() => {
-    if (isLoggedIn) {
+    if (isLoggedIn && location.pathname === "/") {
       navigate("/profile");
     }
   }, [navigate, isLoggedIn]);
