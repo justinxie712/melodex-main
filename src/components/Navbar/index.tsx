@@ -2,14 +2,13 @@ import { NavLink, useNavigate } from "react-router-dom";
 import "./styles.scss";
 
 interface NavbarProps {
-  token: string | null;
+  isLoggedIn: boolean;
   title: string;
   profile: { display_name: string } | null;
   onLogout: () => void;
 }
 
-function Navbar({ token, title, profile, onLogout }: NavbarProps) {
-  const isLoggedIn = !!(token && profile?.display_name);
+function Navbar({ title, profile, onLogout, isLoggedIn }: NavbarProps) {
   const navigate = useNavigate();
 
   const handleClick = () => {
@@ -24,7 +23,7 @@ function Navbar({ token, title, profile, onLogout }: NavbarProps) {
       >
         {title}
       </div>
-      {isLoggedIn && (
+      {isLoggedIn && profile?.display_name && (
         <div className="navbar-links">
           <div className="navbar-nav-items">
             <NavLink
@@ -41,11 +40,9 @@ function Navbar({ token, title, profile, onLogout }: NavbarProps) {
             </NavLink>
           </div>
           <div className="navbar-user-section">
-            {profile.display_name && (
-              <span className="navbar-username">
-                {`Hello, ${profile.display_name}`}
-              </span>
-            )}
+            <span className="navbar-username">
+              {`Hello, ${profile.display_name}`}
+            </span>
             <button onClick={onLogout} className="logout-button">
               Logout
             </button>

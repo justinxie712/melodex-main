@@ -7,6 +7,7 @@ function App() {
   const [token, setToken] = useState<string | null>(null);
   const [profile, setProfile] = useState<{ display_name: string } | null>(null);
   const navigate = useNavigate();
+  const isLoggedIn = !!(token && profile?.display_name);
 
   // Fetch profile from Spotify API
   const fetchProfile = (accessToken: string) => {
@@ -50,10 +51,16 @@ function App() {
     navigate("/");
   };
 
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate("/profile");
+    }
+  }, [navigate, isLoggedIn]);
+
   return (
     <div className="app-container">
       <Navbar
-        token={token}
+        isLoggedIn={isLoggedIn}
         profile={profile}
         onLogout={handleLogout}
         title="Melodex"
