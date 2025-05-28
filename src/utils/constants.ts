@@ -1,5 +1,8 @@
 import type { ChartOptions } from "chart.js";
 
+export const clientId = "22f447c6455049b29b33a741d879ab2e";
+export const redirectUri = "http://127.0.0.1:5173/callback";
+
 export const trackChartOptions = {
   responsive: true,
   maintainAspectRatio: false,

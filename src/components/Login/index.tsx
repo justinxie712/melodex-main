@@ -1,7 +1,6 @@
+import { clientId, redirectUri } from "../../utils/constants";
 import { generateCodeChallenge, generateCodeVerifier } from "../../utils/pkce";
 
-const clientId = import.meta.env.VITE_SPOTIFY_CLIENT_ID;
-const redirectUri = import.meta.env.VITE_SPOTIFY_REDIRECT_URI;
 const scopes = ["user-read-private", "user-read-email"];
 
 const Login = () => {
