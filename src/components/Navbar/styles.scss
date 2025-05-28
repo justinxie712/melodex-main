@@ -15,6 +15,10 @@
     color: #1db954;
     white-space: nowrap;
     flex-shrink: 0;
+
+    &.navbar-clickable {
+      cursor: pointer;
+    }
   }
 
   .navbar-links {

@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import "./styles.scss";
 
 interface NavbarProps {
@@ -9,10 +9,22 @@ interface NavbarProps {
 }
 
 function Navbar({ token, title, profile, onLogout }: NavbarProps) {
+  const isLoggedIn = !!(token && profile?.display_name);
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate("/profile");
+  };
+
   return (
     <nav className="navbar">
-      <div className="navbar-title">{title}</div>
-      {token && profile?.display_name && (
+      <div
+        onClick={isLoggedIn ? handleClick : undefined}
+        className={`navbar-title ${isLoggedIn ? "navbar-clickable" : ""}`}
+      >
+        {title}
+      </div>
+      {isLoggedIn && (
         <div className="navbar-links">
           <div className="navbar-nav-items">
             <NavLink
