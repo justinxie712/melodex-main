@@ -1,11 +1,16 @@
 @import "../../styles/emptyContent";
 
 .profile {
+  font-family: "Circular", -apple-system, BlinkMacSystemFont, sans-serif;
   &__container {
     padding: 1rem;
     max-width: 36rem;
     margin: 0 auto;
     width: 100%;
+
+    @media (max-width: 768px) {
+      padding: 1rem;
+    }
   }
 
   &__header {
@@ -13,19 +18,24 @@
     margin-bottom: 2rem;
 
     h1 {
-      font-size: 2.5rem;
-      font-weight: 700;
-      color: #1f2937;
-      margin: 0 0 0.5rem 0;
-      color: #fff;
-      font-family: "Circular", -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 3rem;
+      font-weight: 900;
+      margin-bottom: 0.5rem;
+      color: #ffffff;
+
+      @media (max-width: 768px) {
+        font-size: 2rem;
+      }
     }
 
     p {
-      font-size: 1.125rem;
+      font-size: 1rem;
       color: #6b7280;
       margin: 0;
-      font-family: "Circular", -apple-system, BlinkMacSystemFont, sans-serif;
+
+      @media (max-width: 768px) {
+        font-size: 0.9rem;
+      }
     }
   }
 

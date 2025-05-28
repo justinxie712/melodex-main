@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import "./styles.scss";
 import type { SearchBarProps } from "../../types";
+import { X } from "lucide-react";
 
 const SearchBar: React.FC<SearchBarProps> = ({
   query,
@@ -9,8 +10,10 @@ const SearchBar: React.FC<SearchBarProps> = ({
   closeResults,
   error,
   onQueryChange,
-  onClear,
+  onClearInput,
+  onClearSelections,
   onResultsChange,
+  disableClearSelections,
 }) => {
   const [localShowResults, setLocalShowResults] = useState(propShowResults);
   const resultsWrapperRef = useRef<HTMLDivElement>(null);
@@ -62,8 +65,16 @@ const SearchBar: React.FC<SearchBarProps> = ({
           onFocus={handleInputInteraction}
           className="search-bar__input"
         />
-        <button onClick={onClear} className="search-bar__button">
+        <button onClick={onClearInput} className="search-bar__button">
           Clear
+        </button>
+        <button
+          disabled={disableClearSelections}
+          className="profile__close-button"
+          onClick={onClearSelections}
+          aria-label="Close track details"
+        >
+          <X size={20} />
         </button>
       </div>
       {error && <p className="search-bar__error">{error}</p>}

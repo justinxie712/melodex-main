@@ -27,9 +27,11 @@ export interface SearchBarProps {
   query: string;
   results: Track[];
   showResults: boolean;
+  disableClearSelections: boolean;
   error: string | null;
   onQueryChange: (query: string) => void;
-  onClear: () => void;
+  onClearInput: () => void;
+  onClearSelections: () => void;
   closeResults: () => void;
   onResultsChange: (result: any) => void;
 }

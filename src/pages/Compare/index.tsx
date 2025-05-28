@@ -22,7 +22,6 @@ import { refreshToken } from "../../utils/helpers";
 import type { AudioFeatures, Track } from "../../types";
 import "./styles.scss";
 import SpinnerWidget from "../../components/Spinner";
-import { useMediaQuery } from "react-responsive";
 import EmptyState from "../../components/EmptyState";
 
 ChartJS.register(
@@ -63,7 +62,6 @@ const Compare: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const token = localStorage.getItem("spotify_token");
-  const isMobile = useMediaQuery({ maxWidth: 767 });
 
   // Function to get the next available color
   const getNextAvailableColor = (): string => {
@@ -404,7 +402,12 @@ const Compare: React.FC = () => {
             closeResults={() => setShowResults(false)}
             error={error}
             onQueryChange={handleQueryChange}
-            onClear={handleClear}
+            onClearInput={handleClear}
+            onClearSelections={() => {
+              setCompareTracks([]);
+              setShowResults(false);
+            }}
+            disableClearSelections={!compareTracks.length}
             onResultsChange={handleResultsChange}
           />
         </motion.div>

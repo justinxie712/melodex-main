@@ -8,7 +8,6 @@ import type { AudioFeatures, Track } from "../../types";
 import { getAudioFeatures } from "../../services/audioFeaturesService";
 import { refreshToken } from "../../utils/helpers";
 import SpinnerWidget from "../../components/Spinner";
-import { X } from "lucide-react";
 import EmptyState from "../../components/EmptyState";
 
 const Profile: React.FC = () => {
@@ -119,77 +118,75 @@ const Profile: React.FC = () => {
   };
 
   return (
-    <div className="profile__container">
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        className="profile__header"
-      >
-        <h1>Track Analysis</h1>
-        <p>Search for a track to explore its audio features</p>
-      </motion.div>
-
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.2 }}
-        className="profile__search"
-      >
-        <SearchBar
-          query={query}
-          results={results}
-          showResults={showResults}
-          closeResults={() => setShowResults(false)}
-          error={error}
-          onQueryChange={handleQueryChange}
-          onClear={handleClear}
-          onResultsChange={handleResultsChange}
-        />
-        <button
-          style={{ visibility: selectedTrack ? "visible" : "hidden" }}
-          className="profile__close-button"
-          onClick={() => setSelectedTrack(null)}
-          aria-label="Close track details"
-        >
-          <X size={20} />
-        </button>
-      </motion.div>
-      {isLoading && !selectedTrack ? (
+    <div className="profile">
+      <div className="profile__container">
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          className="profile__loading"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="profile__header"
         >
-          <SpinnerWidget />
+          <h1>Track Analysis</h1>
+          <p>Search for a track to explore its audio features</p>
         </motion.div>
-      ) : (
-        <AnimatePresence mode="wait">
-          {selectedTrack ? (
-            <motion.div
-              key="track-detail"
-              initial={{ opacity: 0, scale: 0.9, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.9, y: -20 }}
-              transition={{ duration: 0.5 }}
-              className="profile__track-detail"
-            >
-              <TrackDetail
-                track={selectedTrack}
-                audioFeatures={audioFeatures}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="profile__search"
+        >
+          <SearchBar
+            query={query}
+            results={results}
+            showResults={showResults}
+            closeResults={() => setShowResults(false)}
+            error={error}
+            onQueryChange={handleQueryChange}
+            onClearInput={handleClear}
+            onClearSelections={() => {
+              setSelectedTrack(null);
+              setShowResults(false);
+            }}
+            disableClearSelections={!selectedTrack}
+            onResultsChange={handleResultsChange}
+          />
+        </motion.div>
+        {isLoading && !selectedTrack ? (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="profile__loading"
+          >
+            <SpinnerWidget />
+          </motion.div>
+        ) : (
+          <AnimatePresence mode="wait">
+            {selectedTrack ? (
+              <motion.div
+                key="track-detail"
+                initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.9, y: -20 }}
+                transition={{ duration: 0.5 }}
+                className="profile__track-detail"
+              >
+                <TrackDetail
+                  track={selectedTrack}
+                  audioFeatures={audioFeatures}
+                />
+              </motion.div>
+            ) : (
+              <EmptyState
+                title={"No track selected"}
+                description={
+                  "Search for a track above to view its detailed audio analysis"
+                }
               />
-            </motion.div>
-          ) : (
-            <EmptyState
-              title={"No track selected"}
-              description={
-                "Search for a track above to view its detailed audio analysis"
-              }
-            />
-          )}
-        </AnimatePresence>
-      )}
+            )}
+          </AnimatePresence>
+        )}
+      </div>
     </div>
   );
 };
