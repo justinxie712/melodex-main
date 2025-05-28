@@ -65,12 +65,12 @@ const SearchBar: React.FC<SearchBarProps> = ({
           onFocus={handleInputInteraction}
           className="search-bar__input"
         />
-        <button onClick={onClearInput} className="search-bar__button">
+        <button onClick={onClearInput} className="search-bar__clear-input">
           Clear
         </button>
         <button
           disabled={disableClearSelections}
-          className="profile__close-button"
+          className="search-bar__clear-selections"
           onClick={onClearSelections}
           aria-label="Close track details"
         >
