@@ -64,7 +64,7 @@ function App() {
         isLoggedIn={isLoggedIn}
         profile={profile}
         onLogout={handleLogout}
-        title="Melodex"
+        title="elodex"
       />
       <main>
         <Outlet />

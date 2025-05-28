@@ -1,9 +1,12 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import "./styles.scss";
 import type { NavbarProps } from "../../types";
+import logoIcon from "../../assets/favicon.png";
+import { useMediaQuery } from "react-responsive";
 
 function Navbar({ title, profile, onLogout, isLoggedIn }: NavbarProps) {
   const navigate = useNavigate();
+  const isMobile = useMediaQuery({ query: "(max-width: 767px)" });
 
   const handleClick = () => {
     navigate("/profile");
@@ -15,7 +18,8 @@ function Navbar({ title, profile, onLogout, isLoggedIn }: NavbarProps) {
         onClick={isLoggedIn ? handleClick : undefined}
         className={`navbar-title ${isLoggedIn ? "navbar-clickable" : ""}`}
       >
-        {title}
+        <img src={logoIcon} alt="Melodex Icon" className="melodex-icon" />
+        {!isMobile && <span className="melodex-title">{title}</span>}
       </div>
       {isLoggedIn && profile?.display_name && (
         <div className="navbar-links">
