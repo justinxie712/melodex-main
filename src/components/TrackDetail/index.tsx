@@ -3,6 +3,7 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
 import "./styles.scss";
 import type { TrackDetailProps } from "../../types";
+import { trackChartOptions } from "../../utils/constants";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -119,19 +120,6 @@ const TrackDetail: React.FC<TrackDetailProps> = ({ track, audioFeatures }) => {
     };
   };
 
-  const chartOptions = {
-    responsive: true,
-    maintainAspectRatio: false,
-    plugins: {
-      legend: {
-        display: false,
-      },
-      tooltip: {
-        enabled: false,
-      },
-    },
-  };
-
   const artistNames = track.artists.map((a) => a.name).join(", ");
   const albumImage = track.album.images[0]?.url || "";
 
@@ -176,7 +164,10 @@ const TrackDetail: React.FC<TrackDetailProps> = ({ track, audioFeatures }) => {
           <p className="track-detail__artist">{artistNames}</p>
         </div>
         <div className="track-detail__popularity-chart">
-          <Doughnut data={createPopularityChartData()} options={chartOptions} />
+          <Doughnut
+            data={createPopularityChartData()}
+            options={trackChartOptions}
+          />
           <div className="track-detail__feature-label">
             <span className="track-detail__feature-value">
               {track.popularity}
@@ -190,7 +181,10 @@ const TrackDetail: React.FC<TrackDetailProps> = ({ track, audioFeatures }) => {
         {audioFeatures && typeof audioFeatures.key === "number" && (
           <div className="track-detail__feature-item">
             <div className="track-detail__chart-container">
-              <Doughnut data={createKeyChartData()} options={chartOptions} />
+              <Doughnut
+                data={createKeyChartData()}
+                options={trackChartOptions}
+              />
               <div className="track-detail__feature-label">
                 <span className="track-detail__feature-value">
                   {getKeyName()}
@@ -212,7 +206,7 @@ const TrackDetail: React.FC<TrackDetailProps> = ({ track, audioFeatures }) => {
                   featureConfig[key].maxValue,
                   featureConfig[key].color
                 )}
-                options={chartOptions}
+                options={trackChartOptions}
               />
               <div className="track-detail__feature-label">
                 <span className="track-detail__feature-value">
