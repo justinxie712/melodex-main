@@ -9,6 +9,7 @@ import { getAudioFeatures } from "../../services/audioFeaturesService";
 import { refreshToken } from "../../utils/helpers";
 import SpinnerWidget from "../../components/Spinner";
 import { X } from "lucide-react";
+import EmptyState from "../../components/EmptyState";
 
 const Profile: React.FC = () => {
   const [query, setQuery] = useState("");
@@ -180,22 +181,12 @@ const Profile: React.FC = () => {
               />
             </motion.div>
           ) : (
-            <motion.div
-              key="empty-state"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
-              className="profile__empty"
-            >
-              <div className="empty__content">
-                <div className="empty__icon">🎵</div>
-                <h3>No track selected</h3>
-                <p>
-                  Search for a track above to view its detailed audio analysis
-                </p>
-              </div>
-            </motion.div>
+            <EmptyState
+              title={"No track selected"}
+              description={
+                "Search for a track above to view its detailed audio analysis"
+              }
+            />
           )}
         </AnimatePresence>
       )}

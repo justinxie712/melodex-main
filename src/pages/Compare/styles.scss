@@ -1,3 +1,4 @@
+@import "../../styles/emptyContent";
 .compare {
   min-height: 100vh;
   color: #ffffff;
@@ -299,36 +300,7 @@
     align-items: center;
     justify-content: center;
     min-height: 500px;
-    text-align: center;
     width: 100%;
-
-    .empty__content {
-      background-color: #181818;
-      border-radius: 8px;
-      padding: 3rem 2rem;
-      max-width: 400px;
-      width: 100%;
-
-      .empty__icon {
-        font-size: 3rem;
-        margin-bottom: 1rem;
-        opacity: 0.5;
-      }
-
-      h3 {
-        font-size: 1.5rem;
-        font-weight: 700;
-        margin-bottom: 1rem;
-        color: #ffffff;
-      }
-
-      p {
-        color: #b3b3b3;
-        font-size: 1rem;
-        line-height: 1.5;
-        margin: 0;
-      }
-    }
   }
 }
 

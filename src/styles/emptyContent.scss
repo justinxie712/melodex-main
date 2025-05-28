@@ -1,0 +1,33 @@
+.empty__content {
+  text-align: center;
+  max-width: 400px;
+
+  .empty__icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+
+    @media (max-width: 480px) {
+      font-size: 3rem;
+    }
+  }
+
+  h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #ffffff; // Use a consistent color
+
+    @media (max-width: 480px) {
+      font-size: 1.25rem;
+    }
+  }
+
+  p {
+    color: #b3b3b3; // Use a consistent color
+    margin: 0;
+    line-height: 1.5;
+
+    @media (max-width: 480px) {
+      font-size: 0.875rem;
+    }
+  }
+}

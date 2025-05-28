@@ -23,6 +23,7 @@ import type { AudioFeatures, Track } from "../../types";
 import "./styles.scss";
 import SpinnerWidget from "../../components/Spinner";
 import { useMediaQuery } from "react-responsive";
+import EmptyState from "../../components/EmptyState";
 
 ChartJS.register(
   RadialLinearScale,
@@ -528,20 +529,12 @@ const Compare: React.FC = () => {
               </motion.div>
             </motion.div>
           ) : (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
-              className="compare__empty"
-            >
-              <div className="empty__content">
-                <div className="empty__icon">🎵</div>
-                <h3>No tracks selected</h3>
-                <p>
-                  Search and add tracks to start comparing their audio features
-                </p>
-              </div>
-            </motion.div>
+            <EmptyState
+              title={"No track selected"}
+              description={
+                "Search and add tracks to start comparing their audio features"
+              }
+            />
           )}
         </div>
       </div>
