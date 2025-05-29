@@ -12,36 +12,69 @@ function Navbar({ title, profile, onLogout, isLoggedIn }: NavbarProps) {
     navigate("/profile");
   };
 
+  const handleKeyDown = (event: React.KeyboardEvent) => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      handleClick();
+    }
+  };
+
   return (
-    <nav className="navbar">
+    <nav className="navbar" role="navigation" aria-label="Main navigation">
       <div
         onClick={isLoggedIn ? handleClick : undefined}
+        onKeyDown={isLoggedIn ? handleKeyDown : undefined}
         className={`navbar-title ${isLoggedIn ? "navbar-clickable" : ""}`}
+        role={isLoggedIn ? "button" : undefined}
+        tabIndex={isLoggedIn ? 0 : undefined}
+        aria-label={isLoggedIn ? "Go to profile page" : undefined}
       >
-        <img src={logoIcon} alt="Melodex Icon" className="melodex-icon" />
+        <img src={logoIcon} alt="Melodex logo" className="melodex-icon" />
         {!isMobile && <span className="melodex-title">{title}</span>}
       </div>
       {isLoggedIn && profile?.display_name && (
         <div className="navbar-links">
-          <div className="navbar-nav-items">
-            <NavLink
-              to="/profile"
-              className={({ isActive }) => (isActive ? "active" : "")}
+          <ul
+            className="navbar-nav-items"
+            role="menubar"
+            aria-label="Navigation menu"
+          >
+            <li role="none">
+              <NavLink
+                to="/profile"
+                className={({ isActive }) => (isActive ? "active" : "")}
+                role="menuitem"
+              >
+                Profile
+              </NavLink>
+            </li>
+            <li role="none">
+              <NavLink
+                to="/compare"
+                className={({ isActive }) => (isActive ? "active" : "")}
+                role="menuitem"
+              >
+                Compare
+              </NavLink>
+            </li>
+          </ul>
+          <div
+            className="navbar-user-section"
+            role="region"
+            aria-label="User account"
+          >
+            <span
+              className="navbar-username"
+              aria-label={`Logged in as ${profile.display_name}`}
             >
-              Profile
-            </NavLink>
-            <NavLink
-              to="/compare"
-              className={({ isActive }) => (isActive ? "active" : "")}
-            >
-              Compare
-            </NavLink>
-          </div>
-          <div className="navbar-user-section">
-            <span className="navbar-username">
               {`Hello, ${profile.display_name}`}
             </span>
-            <button onClick={onLogout} className="logout-button">
+            <button
+              onClick={onLogout}
+              className="logout-button"
+              aria-label="Log out of your account"
+              type="button"
+            >
               Logout
             </button>
           </div>
@@ -50,5 +83,4 @@ function Navbar({ title, profile, onLogout, isLoggedIn }: NavbarProps) {
     </nav>
   );
 }
-
 export default Navbar;
