@@ -29,8 +29,8 @@ The SearchBar component (`src/components/SearchBar/index.tsx`) provides a compre
 **Key Features:**
 
 - Real-time search with dynamic results display
-- Click-outside functionality to close results
 - Interactive track selection with album artwork
+- Integrate Charts.js library to build the Compare mode, which allows user to compare metrics between up to 4 songs
 - Error handling and loading states
 - Responsive design with SCSS styling
 
@@ -40,6 +40,7 @@ The SearchBar component (`src/components/SearchBar/index.tsx`) provides a compre
 - Shows track information including name, artists, and album artwork
 - Handles user interactions (focus, click, selection)
 - Manages results visibility state
+- Mocked audio feature data and cached results locally during session to simulate GET call for /audio-features (deprecated endpoint by Spotify)
 - Provides clear functionality to reset search
 
 **Props Interface:**
@@ -59,7 +60,6 @@ The SearchBar component (`src/components/SearchBar/index.tsx`) provides a compre
 
 - Node.js (v16 or higher)
 - npm or yarn
-- A Spotify Developer account (for API access)
 
 ### Installation
 
@@ -147,3 +147,4 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 - Spotify for providing their Web API
 - The React and Vite communities for their excellent tools and documentation
 - Framer Motion for providing smooth animation capabilities
+- Chart.js for providing beautiful charts and visualizations
