@@ -1,16 +1,14 @@
 @import "../../styles/emptyContent";
 .compare {
-  min-height: 100vh;
   color: #ffffff;
-  font-family: "Circular", -apple-system, BlinkMacSystemFont, sans-serif;
+  width: 100%;
 
   .compare__container {
-    max-width: 1200px;
     margin: 0 auto;
     padding: 2rem;
     min-height: 100vh;
 
-    @media (max-width: 768px) {
+    @media (max-width: 767px) {
       padding: 1rem;
     }
   }
@@ -25,7 +23,7 @@
       margin-bottom: 0.5rem;
       color: #ffffff;
 
-      @media (max-width: 768px) {
+      @media (max-width: 767px) {
         font-size: 2rem;
       }
     }
@@ -35,7 +33,7 @@
       color: #6b7280;
       margin: 0;
 
-      @media (max-width: 768px) {
+      @media (max-width: 767px) {
         font-size: 0.9rem;
       }
     }
@@ -72,7 +70,7 @@
 
   .compare__content {
     width: 100%;
-    min-height: 500px; // Ensures consistent height
+    min-height: 500px;
   }
 
   .compare__main {
@@ -81,7 +79,7 @@
     grid-template-columns: 1fr;
     width: 100%;
 
-    @media (min-width: 1024px) {
+    @media (min-width: 1023px) {
       grid-template-columns: 350px 1fr;
     }
   }
@@ -287,7 +285,7 @@
         box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
       }
 
-      @media (max-width: 768px) {
+      @media (max-width: 767px) {
         height: 350px;
       }
     }
@@ -341,7 +339,7 @@
 }
 
 // Responsive adjustments
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .compare {
     .compare__main {
       gap: 1.5rem;
