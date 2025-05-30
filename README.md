@@ -28,6 +28,7 @@ The SearchBar component (`src/components/SearchBar/index.tsx`) provides a compre
 
 **Key Features:**
 
+- Spotify PKCE Authentication and log in flow support
 - Real-time search with dynamic results display
 - Interactive track selection with album artwork
 - Integrate Charts.js library to build the Compare mode, which allows user to compare metrics between up to 4 songs
@@ -42,17 +43,17 @@ The SearchBar component (`src/components/SearchBar/index.tsx`) provides a compre
 - Manages results visibility state
 - Mocked audio feature data and cached results locally during session to simulate GET call for /audio-features (deprecated endpoint by Spotify)
 - Provides clear functionality to reset search
+  
 
-**Props Interface:**
+## User Interface
+**Song Profile:**
+<img width="1260" alt="profile" src="https://github.com/user-attachments/assets/9169a5b2-bb15-4b8d-9acb-ea26155c6879" />
 
-- `query`: Current search query string
-- `results`: Array of track results from Spotify API
-- `showResults`: Boolean to control results visibility
-- `closeResults`: Callback to close results dropdown
-- `error`: Error message display
-- `onQueryChange`: Handler for search input changes
-- `onClear`: Handler for clearing search
-- `onResultsChange`: Handler for track selection
+
+
+**Compare Tracks:**
+<img width="1264" alt="compare" src="https://github.com/user-attachments/assets/bc34686c-0e07-4c14-8b71-e4e1de6daeea" />
+
 
 ## Getting Started
 
