@@ -228,3 +228,11 @@
     }
   }
 }
+
+.search-results {
+  &__item:focus-visible {
+    border: 2px solid #1db954;
+    background-color: rgba(29, 185, 84, 0.1);
+    transform: translateX(10px);
+  }
+}

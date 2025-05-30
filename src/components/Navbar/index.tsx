@@ -42,7 +42,9 @@ function Navbar({ title, profile, onLogout, isLoggedIn }: NavbarProps) {
             <li role="none">
               <NavLink
                 to="/profile"
-                className={({ isActive }) => (isActive ? "active" : "")}
+                className={({ isActive }) => 
+                  `focus-visible ${isActive ? "active" : ""}`
+                }
                 role="menuitem"
               >
                 Profile
@@ -51,7 +53,9 @@ function Navbar({ title, profile, onLogout, isLoggedIn }: NavbarProps) {
             <li role="none">
               <NavLink
                 to="/compare"
-                className={({ isActive }) => (isActive ? "active" : "")}
+                className={({ isActive }) => 
+                  `focus-visible ${isActive ? "active" : ""}`
+                }
                 role="menuitem"
               >
                 Compare
@@ -71,7 +75,7 @@ function Navbar({ title, profile, onLogout, isLoggedIn }: NavbarProps) {
             </span>
             <button
               onClick={onLogout}
-              className="logout-button"
+              className="logout-button focus-visible"
               aria-label="Log out of your account"
               type="button"
             >

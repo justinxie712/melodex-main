@@ -26,6 +26,33 @@ const SearchBar: React.FC<SearchBarProps> = ({
     }
   };
 
+  const handleTrackSelect = (track: any) => {
+    onResultsChange(track);
+    setLocalShowResults(false);
+  };
+
+  const handleTrackKeyDown = (event: React.KeyboardEvent, track: any) => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      handleTrackSelect(track);
+    }
+  };
+
+  const handleSearchInputKeyDown = (
+    e: React.KeyboardEvent<HTMLInputElement>,
+    resultsWrapperRef: React.RefObject<HTMLDivElement | null>
+  ) => {
+    if (e.key === "ArrowDown") {
+      const firstResult = resultsWrapperRef.current?.querySelector(
+        ".search-bar__track-item"
+      );
+      if (firstResult) {
+        (firstResult as HTMLElement).focus();
+        e.preventDefault();
+      }
+    }
+  };
+
   useEffect(() => {
     setLocalShowResults(propShowResults);
   }, [propShowResults]);
@@ -63,6 +90,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
           onChange={(e) => onQueryChange(e.target.value)}
           onClick={handleInputInteraction}
           onFocus={handleInputInteraction}
+          onKeyDown={(e) => handleSearchInputKeyDown(e, resultsWrapperRef)}
           className="search-bar__input"
         />
         <button onClick={onClearInput} className="search-bar__clear-input">
@@ -85,10 +113,13 @@ const SearchBar: React.FC<SearchBarProps> = ({
               <li
                 key={track.id}
                 className="search-bar__track-item"
-                onClick={() => {
-                  onResultsChange(track);
-                  setLocalShowResults(false);
-                }}
+                tabIndex={0}
+                role="button"
+                aria-label={`Select ${track.name} by ${track.artists
+                  .map((a) => a.name)
+                  .join(", ")}`}
+                onClick={() => handleTrackSelect(track)}
+                onKeyDown={(e) => handleTrackKeyDown(e, track)}
               >
                 <img
                   src={track.album.images[0]?.url}
