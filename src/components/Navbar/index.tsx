@@ -27,7 +27,9 @@ function Navbar({ title, profile, onLogout, isLoggedIn }: NavbarProps) {
         className={`navbar-title ${isLoggedIn ? "navbar-clickable" : ""}`}
         role={isLoggedIn ? "button" : undefined}
         tabIndex={isLoggedIn ? 0 : undefined}
-        aria-label={isLoggedIn ? "Go to profile page" : undefined}
+        aria-label={
+          isLoggedIn ? "Melodex logo. Click to go to Profile page" : undefined
+        }
       >
         <img src={logoIcon} alt="Melodex logo" className="melodex-icon" />
         {!isMobile && <span className="melodex-title">{title}</span>}
@@ -42,7 +44,7 @@ function Navbar({ title, profile, onLogout, isLoggedIn }: NavbarProps) {
             <li role="none">
               <NavLink
                 to="/profile"
-                className={({ isActive }) => 
+                className={({ isActive }) =>
                   `focus-visible ${isActive ? "active" : ""}`
                 }
                 role="menuitem"
@@ -53,7 +55,7 @@ function Navbar({ title, profile, onLogout, isLoggedIn }: NavbarProps) {
             <li role="none">
               <NavLink
                 to="/compare"
-                className={({ isActive }) => 
+                className={({ isActive }) =>
                   `focus-visible ${isActive ? "active" : ""}`
                 }
                 role="menuitem"
