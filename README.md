@@ -28,6 +28,7 @@ The SearchBar component (`src/components/SearchBar/index.tsx`) provides a compre
 
 **Key Features:**
 
+- Spotify PKCE Authentication and log in flow support
 - Real-time search with dynamic results display
 - Interactive track selection with album artwork
 - Integrate Charts.js library to build the Compare mode, which allows user to compare metrics between up to 4 songs
