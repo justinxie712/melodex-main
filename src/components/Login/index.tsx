@@ -1,3 +1,5 @@
+import "./styles.scss";
+import { FaSpotify } from "react-icons/fa";
 import { clientId, redirectUri } from "../../utils/constants";
 import { generateCodeChallenge, generateCodeVerifier } from "../../utils/pkce";
 
@@ -25,7 +27,18 @@ const Login = () => {
     window.location.href = authUrl;
   };
 
-  return <button onClick={handleLogin}>Login with Spotify</button>;
+  return (
+    <div className="login-container">
+      <div className="spotify-login-widget">
+        <h1>Log in to Spotify</h1>
+        <p>Please log in to continue.</p>
+        <button className="spotify-login-button" onClick={handleLogin}>
+          <FaSpotify className="spotify-icon" />
+          Log in with Spotify
+        </button>
+      </div>
+    </div>
+  );
 };
 
 export default Login;
