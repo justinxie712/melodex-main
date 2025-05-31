@@ -6,7 +6,6 @@
   .compare__container {
     margin: 0 auto;
     padding: 2rem;
-    min-height: 100vh;
 
     @media (max-width: 767px) {
       padding: 1rem;
@@ -70,7 +69,6 @@
 
   .compare__content {
     width: 100%;
-    min-height: 500px;
   }
 
   .compare__main {
