@@ -69,12 +69,14 @@ function Navbar({ title, profile, onLogout, isLoggedIn }: NavbarProps) {
             role="region"
             aria-label="User account"
           >
-            <span
-              className="navbar-username"
-              aria-label={`Logged in as ${profile.display_name}`}
-            >
-              {`Hello, ${profile.display_name}`}
-            </span>
+            {!isMobile && (
+              <span
+                className="navbar-username"
+                aria-label={`Logged in as ${profile.display_name}`}
+              >
+                {`Hello, ${profile.display_name}`}
+              </span>
+            )}
             <button
               onClick={onLogout}
               className="logout-button focus-visible"
