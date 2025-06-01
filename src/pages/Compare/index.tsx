@@ -1,5 +1,4 @@
-import React, { useState, useCallback, useEffect } from "react";
-import { debounce } from "lodash";
+import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Chart as ChartJS,
@@ -15,8 +14,6 @@ import {
 } from "chart.js";
 import { Bar, Radar } from "react-chartjs-2";
 import SearchBar from "../../components/SearchBar";
-import { cacheService } from "../../services/cacheService";
-import { getAudioFeatures } from "../../services/audioFeaturesService";
 import { refreshToken } from "../../utils/helpers";
 import type { AudioFeatures, CompareTrack, Track } from "../../types";
 import "./styles.scss";
@@ -24,6 +21,7 @@ import SpinnerWidget from "../../components/Spinner";
 import EmptyState from "../../components/EmptyState";
 import { barChartOptions, chartOptions } from "../../utils/constants";
 import { TrackItem } from "../../components/TrackItem";
+import { useSearch } from "../../hooks/useSearch";
 
 ChartJS.register(
   RadialLinearScale,
@@ -51,13 +49,20 @@ const TRACK_COLORS = ["#1DB954", "#E22134", "#FF6B35", "#9B59B6"];
 
 const Compare: React.FC = () => {
   const [query, setQuery] = useState("");
-  const [showResults, setShowResults] = useState(false);
-  const [results, setResults] = useState<Track[]>([]);
   const [compareTracks, setCompareTracks] = useState<CompareTrack[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
-  const [error, setError] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
   const token = localStorage.getItem("spotify_token");
+
+  const {
+    results,
+    showResults,
+    isLoading,
+    error,
+    fetchAudioFeatures,
+    setShowResults,
+    setError,
+    setIsLoading,
+  } = useSearch({ token, query, refreshToken });
 
   // Function to get the next available color
   const getNextAvailableColor = (): string => {
@@ -75,95 +80,6 @@ const Compare: React.FC = () => {
       color: TRACK_COLORS[index] || TRACK_COLORS[index % TRACK_COLORS.length],
     }));
   };
-
-  const searchTracks = async (searchQuery: string) => {
-    if (!searchQuery || !token) return;
-
-    const cacheKey = `search_${searchQuery}`;
-    const cachedResults = cacheService.get<Track[]>(cacheKey);
-
-    if (cachedResults) {
-      setResults(cachedResults);
-      setShowResults(true);
-      return;
-    }
-
-    try {
-      setIsLoading(true);
-      const res = await fetch(
-        `https://api.spotify.com/v1/search?q=${encodeURIComponent(
-          searchQuery
-        )}&type=track,artist&limit=10`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      if (!res.ok) {
-        if (res.status === 401) {
-          await refreshToken();
-          return;
-        }
-        throw new Error("Failed to fetch. Token may have expired.");
-      }
-
-      const data = await res.json();
-      const trackResults: Track[] = data.tracks?.items || [];
-
-      cacheService.set(cacheKey, trackResults);
-      setResults(trackResults);
-      setShowResults(true);
-      setError(null);
-    } catch (err) {
-      setError((err as Error).message);
-      setResults([]);
-      setShowResults(false);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const fetchAudioFeatures = async (
-    trackId: string
-  ): Promise<AudioFeatures | null> => {
-    const cacheKey = `audio_features_${trackId}`;
-    const cachedFeatures = cacheService.get<AudioFeatures>(cacheKey);
-
-    if (cachedFeatures) {
-      return cachedFeatures;
-    }
-
-    try {
-      const features = await getAudioFeatures(trackId);
-      cacheService.set(cacheKey, features);
-      return features;
-    } catch (err) {
-      console.error(`Error fetching audio features for ${trackId}:`, err);
-      return null;
-    }
-  };
-
-  const debouncedSearch = useCallback(
-    debounce((searchQuery: string) => {
-      searchTracks(searchQuery);
-    }, 300),
-    [token]
-  );
-
-  useEffect(() => {
-    if (query) {
-      debouncedSearch(query);
-    } else {
-      setResults([]);
-      setShowResults(false);
-    }
-
-    return () => {
-      debouncedSearch.cancel();
-    };
-  }, [query, debouncedSearch]);
 
   const handleQueryChange = (newQuery: string) => {
     setQuery(newQuery);
