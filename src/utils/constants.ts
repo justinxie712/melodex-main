@@ -134,3 +134,47 @@ export const AUDIO_FEATURE_CATEGORIES = [
 ] as const;
 
 export const TRACK_COLORS = ["#1DB954", "#E22134", "#FF6B35", "#9B59B6"];
+
+// Musical key mapping (0-11 to note names)
+export const keyNames = [
+  "C",
+  "C♯/D♭",
+  "D",
+  "D♯/E♭",
+  "E",
+  "F",
+  "F♯/G♭",
+  "G",
+  "G♯/A♭",
+  "A",
+  "A♯/B♭",
+  "B",
+];
+
+export const featureConfig: Record<
+  string,
+  { color: string; maxValue: number; label: string }
+> = {
+  danceability: { color: "#FF4500", maxValue: 1, label: "Danceability" },
+  energy: { color: "#FFD700", maxValue: 1, label: "Energy" },
+  acousticness: { color: "#4169E1", maxValue: 1, label: "Acousticness" },
+  instrumentalness: {
+    color: "#9370DB",
+    maxValue: 1,
+    label: "Instrumentalness",
+  },
+  liveness: { color: "#32CD32", maxValue: 1, label: "Liveness" },
+  speechiness: { color: "#FF69B4", maxValue: 1, label: "Speechiness" },
+  valence: { color: "#00CED1", maxValue: 1, label: "Valence" },
+  tempo: { color: "#FF8C00", maxValue: 200, label: "Tempo" },
+};
+
+export const trackDetailChartOptions = {
+  ...trackChartOptions,
+  plugins: {
+    ...trackChartOptions.plugins,
+    legend: {
+      display: false,
+    },
+  },
+};
