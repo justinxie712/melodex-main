@@ -25,6 +25,8 @@ interface TrackItemProps {
 }
 
 export const TrackItem = ({ track, index, onRemove }: TrackItemProps) => {
+  const artistNames = track.artists.map((artist) => artist.name).join(", ");
+  
   return (
     <motion.div
       key={track.id}
@@ -46,11 +48,16 @@ export const TrackItem = ({ track, index, onRemove }: TrackItemProps) => {
         />
         <div className="track__details">
           <h4>{track.name}</h4>
-          <p>{track.artists.map((artist) => artist.name).join(", ")}</p>
+          <p>{artistNames}</p>
         </div>
       </div>
-      <button className="track__remove" onClick={() => onRemove(track.id)}>
-        <IoCloseSharp size={20} />
+      <button 
+        className="track__remove" 
+        onClick={() => onRemove(track.id)}
+        aria-label={`Remove track ${track.name} by ${artistNames} from comparison`}
+        title={`Remove ${track.name} by ${artistNames}`}
+      >
+        <IoCloseSharp size={20} aria-hidden="true" />
       </button>
     </motion.div>
   );
