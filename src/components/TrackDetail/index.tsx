@@ -149,7 +149,11 @@ const TrackDetail: React.FC<TrackDetailProps> = ({ track, audioFeatures }) => {
     return audioFeatures.mode === 1 ? "Major" : "Minor";
   };
 
-  const getAccessibleDescription = (key: string, value: number, maxValue: number) => {
+  const getAccessibleDescription = (
+    key: string,
+    value: number,
+    maxValue: number
+  ) => {
     if (key === "popularity") {
       return `Popularity: ${value} out of 100`;
     }
@@ -157,7 +161,9 @@ const TrackDetail: React.FC<TrackDetailProps> = ({ track, audioFeatures }) => {
       return `Tempo: ${Math.round(value)} beats per minute`;
     }
     const percentage = Math.round((value / maxValue) * 100);
-    return `${featureConfig[key].label}: ${value.toFixed(2)} out of ${maxValue}, which is ${percentage} percent`;
+    return `${featureConfig[key].label}: ${value.toFixed(
+      2
+    )} out of ${maxValue}, which is ${percentage} percent`;
   };
 
   const getKeyAccessibleDescription = () => {
@@ -181,9 +187,13 @@ const TrackDetail: React.FC<TrackDetailProps> = ({ track, audioFeatures }) => {
           <p className="track-detail__artist">{artistNames}</p>
         </div>
         <div className="track-detail__popularity-chart">
-          <div 
-            role="img" 
-            aria-label={getAccessibleDescription("popularity", track.popularity, 100)}
+          <div
+            role="img"
+            aria-label={getAccessibleDescription(
+              "popularity",
+              track.popularity,
+              100
+            )}
           >
             <Doughnut
               data={createPopularityChartData()}
@@ -192,9 +202,9 @@ const TrackDetail: React.FC<TrackDetailProps> = ({ track, audioFeatures }) => {
                 plugins: {
                   ...trackChartOptions.plugins,
                   legend: {
-                    display: false
-                  }
-                }
+                    display: false,
+                  },
+                },
               }}
               aria-hidden="true"
             />
@@ -216,10 +226,7 @@ const TrackDetail: React.FC<TrackDetailProps> = ({ track, audioFeatures }) => {
         {audioFeatures && typeof audioFeatures.key === "number" && (
           <div className="track-detail__feature-item">
             <div className="track-detail__chart-container">
-              <div 
-                role="img" 
-                aria-label={getKeyAccessibleDescription()}
-              >
+              <div role="img" aria-label={getKeyAccessibleDescription()}>
                 <Doughnut
                   data={createKeyChartData()}
                   options={{
@@ -227,9 +234,9 @@ const TrackDetail: React.FC<TrackDetailProps> = ({ track, audioFeatures }) => {
                     plugins: {
                       ...trackChartOptions.plugins,
                       legend: {
-                        display: false
-                      }
-                    }
+                        display: false,
+                      },
+                    },
                   }}
                   aria-hidden="true"
                 />
@@ -243,18 +250,20 @@ const TrackDetail: React.FC<TrackDetailProps> = ({ track, audioFeatures }) => {
                 </span>
               </div>
               {/* Hidden text for screen readers */}
-              <span className="sr-only">
-                {getKeyAccessibleDescription()}
-              </span>
+              <span className="sr-only">{getKeyAccessibleDescription()}</span>
             </div>
           </div>
         )}
         {Object.entries(numericFeatures).map(([key, value]) => (
           <div key={key} className="track-detail__feature-item">
             <div className="track-detail__chart-container">
-              <div 
-                role="img" 
-                aria-label={getAccessibleDescription(key, value, featureConfig[key].maxValue)}
+              <div
+                role="img"
+                aria-label={getAccessibleDescription(
+                  key,
+                  value,
+                  featureConfig[key].maxValue
+                )}
               >
                 <Doughnut
                   data={createChartData(
@@ -268,9 +277,9 @@ const TrackDetail: React.FC<TrackDetailProps> = ({ track, audioFeatures }) => {
                     plugins: {
                       ...trackChartOptions.plugins,
                       legend: {
-                        display: false
-                      }
-                    }
+                        display: false,
+                      },
+                    },
                   }}
                   aria-hidden="true"
                 />
@@ -286,7 +295,11 @@ const TrackDetail: React.FC<TrackDetailProps> = ({ track, audioFeatures }) => {
               </div>
               {/* Hidden text for screen readers */}
               <span className="sr-only">
-                {getAccessibleDescription(key, value, featureConfig[key].maxValue)}
+                {getAccessibleDescription(
+                  key,
+                  value,
+                  featureConfig[key].maxValue
+                )}
               </span>
             </div>
           </div>

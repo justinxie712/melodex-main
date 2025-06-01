@@ -69,6 +69,9 @@
     height: 160px;
     margin-left: 24px;
     flex-shrink: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   &__key-chart {
