@@ -23,6 +23,7 @@ import {
   AUDIO_FEATURE_CATEGORIES,
   barChartOptions,
   chartOptions,
+  TRACK_COLORS,
 } from "../../utils/constants";
 import { TrackItem } from "../../components/TrackItem";
 import { useSearch } from "../../hooks/useSearch";
@@ -38,8 +39,6 @@ ChartJS.register(
   Tooltip,
   Legend
 );
-
-const TRACK_COLORS = ["#1DB954", "#E22134", "#FF6B35", "#9B59B6"];
 
 const Compare: React.FC = () => {
   const [query, setQuery] = useState("");
