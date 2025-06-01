@@ -23,6 +23,7 @@ import "./styles.scss";
 import SpinnerWidget from "../../components/Spinner";
 import EmptyState from "../../components/EmptyState";
 import { barChartOptions, chartOptions } from "../../utils/constants";
+import { TrackItem } from "../../components/TrackItem";
 
 ChartJS.register(
   RadialLinearScale,
@@ -321,45 +322,12 @@ const Compare: React.FC = () => {
                   <div className="tracks__list">
                     <AnimatePresence>
                       {compareTracks.map((track, index) => (
-                        <motion.div
+                        <TrackItem
                           key={track.id}
-                          initial={{ opacity: 0, x: -20 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          exit={{ opacity: 0, x: 20 }}
-                          transition={{ duration: 0.3, delay: index * 0.1 }}
-                          className="track__item"
-                        >
-                          <div
-                            className="track__color-indicator"
-                            style={{ backgroundColor: track.color }}
-                          />
-                          <div className="track__info">
-                            <img
-                              src={
-                                track.album.images[2]?.url ||
-                                track.album.images[0]?.url
-                              }
-                              alt={`Album artwork for ${track.name}`}
-                              className="track__image"
-                            />
-                            <div className="track__details">
-                              <h4>{track.name}</h4>
-                              <p>
-                                {track.artists
-                                  .map((artist) => artist.name)
-                                  .join(", ")}
-                              </p>
-                            </div>
-                          </div>
-                          <motion.button
-                            whileHover={{ scale: 1.1 }}
-                            whileTap={{ scale: 0.9 }}
-                            onClick={() => removeTrack(track.id)}
-                            className="track__remove"
-                          >
-                            ×
-                          </motion.button>
-                        </motion.div>
+                          track={track}
+                          index={index}
+                          onRemove={removeTrack}
+                        />
                       ))}
                     </AnimatePresence>
                   </div>
