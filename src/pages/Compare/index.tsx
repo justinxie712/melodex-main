@@ -19,7 +19,11 @@ import type { AudioFeatures, CompareTrack, Track } from "../../types";
 import "./styles.scss";
 import SpinnerWidget from "../../components/Spinner";
 import EmptyState from "../../components/EmptyState";
-import { barChartOptions, chartOptions } from "../../utils/constants";
+import {
+  AUDIO_FEATURE_CATEGORIES,
+  barChartOptions,
+  chartOptions,
+} from "../../utils/constants";
 import { TrackItem } from "../../components/TrackItem";
 import { useSearch } from "../../hooks/useSearch";
 
@@ -34,16 +38,6 @@ ChartJS.register(
   Tooltip,
   Legend
 );
-
-const AUDIO_FEATURE_CATEGORIES = [
-  { key: "danceability", label: "Danceability", color: "#1DB954" },
-  { key: "energy", label: "Energy", color: "#1ED760" },
-  { key: "speechiness", label: "Speechiness", color: "#1AA34A" },
-  { key: "acousticness", label: "Acousticness", color: "#168B3A" },
-  { key: "instrumentalness", label: "Instrumentalness", color: "#14A085" },
-  { key: "liveness", label: "Liveness", color: "#1B9A59" },
-  { key: "valence", label: "Valence", color: "#1F8B4C" },
-] as const;
 
 const TRACK_COLORS = ["#1DB954", "#E22134", "#FF6B35", "#9B59B6"];
 

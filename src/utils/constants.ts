@@ -122,3 +122,15 @@ export const barChartOptions = {
     },
   },
 };
+
+export const AUDIO_FEATURE_CATEGORIES = [
+  { key: "danceability", label: "Danceability", color: "#1DB954" },
+  { key: "energy", label: "Energy", color: "#1ED760" },
+  { key: "speechiness", label: "Speechiness", color: "#1AA34A" },
+  { key: "acousticness", label: "Acousticness", color: "#168B3A" },
+  { key: "instrumentalness", label: "Instrumentalness", color: "#14A085" },
+  { key: "liveness", label: "Liveness", color: "#1B9A59" },
+  { key: "valence", label: "Valence", color: "#1F8B4C" },
+] as const;
+
+export const TRACK_COLORS = ["#1DB954", "#E22134", "#FF6B35", "#9B59B6"];
