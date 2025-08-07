@@ -20,13 +20,7 @@ Melodex is a modern web application built with React, TypeScript, and Vite that 
 - Framer Motion (for animations)
 - SCSS (for styling)
 
-## Components
-
-### SearchBar Component
-
-The SearchBar component (`src/components/SearchBar/index.tsx`) provides a comprehensive search interface for discovering tracks:
-
-**Key Features:**
+## Key Features
 
 - Spotify PKCE Authentication and log in flow support
 - Real-time search with dynamic results display
